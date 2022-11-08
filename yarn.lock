@@ -3424,6 +3424,11 @@
   "resolved" "https://registry.npmjs.org/node-releases/-/node-releases-2.0.6.tgz"
   "version" "2.0.6"
 
+"nodemailer@^6.6.5", "nodemailer@^6.8.0":
+  "integrity" "sha512-EjYvSmHzekz6VNkNd12aUqAco+bOkRe3Of5jVhltqKhEsjw/y0PYPJfp83+s9Wzh1dspYAkUW/YNQ350NATbSQ=="
+  "resolved" "https://registry.npmjs.org/nodemailer/-/nodemailer-6.8.0.tgz"
+  "version" "6.8.0"
+
 "oauth@^0.9.15":
   "integrity" "sha512-a5ERWK1kh38ExDEfoO6qUHJb32rd7aYmPHuyCu3Fta/cnICvYmgd2uhuKXvPD+PXB+gCEYYEaQdIRAjCOwAKNA=="
   "resolved" "https://registry.npmjs.org/oauth/-/oauth-0.9.15.tgz"
