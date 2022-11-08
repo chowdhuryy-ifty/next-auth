@@ -1,6 +1,6 @@
 import React from "react";
 import {Button, Grid, Heading} from "@chakra-ui/react";
-import {useSession, signIn, signOut} from "next-auth/react";
+import {useSession, signOut} from "next-auth/react";
 import {useRouter} from "next/router";
 
 const Home = () => {
@@ -11,10 +11,10 @@ const Home = () => {
 
     // if we want to redirect user to another url
     const {push, asPath} = useRouter()
+
     const handleSignOut = async () => {
         const data = await signOut({redirect: false, callbackUrl: '/some'})
-        console.log(data)
-        await push(data.url)
+        push(data.url)
     }
 
     const handleSignIn = () => push(`/auth/signin?callbackUrl=${asPath}`)
@@ -29,12 +29,12 @@ const Home = () => {
                         {/*<img src={session['user']['image']} alt="new"/>*/}
                         <div></div>
                         <div>email: {session['user']['email']}</div>
-                        <Button onClick={() => handleSignOut()}>sign out</Button>
+                        <Button onClick={handleSignOut}>sign out</Button>
                     </>
                 ) : (
                     <>
                         <Heading>You are not signed in</Heading>
-                        <Button onClick={() => handleSignIn()}>Sign In</Button>
+                        <Button onClick={handleSignIn}>Sign In</Button>
                     </>
 
                 )
