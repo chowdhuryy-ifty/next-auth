@@ -4,7 +4,7 @@ import GoogleProvider from "next-auth/providers/google";
 import clientPromise from "../../../database/connectDB";
 import {MongoDBAdapter} from "@next-auth/mongodb-adapter"
 import EmailProvider from "next-auth/providers/email";
-
+import CredentialsProvider from 'next-auth/providers/credentials'
 export default NextAuth({
     providers: [
         GithubProvider({
@@ -27,10 +27,10 @@ export default NextAuth({
             from: process.env.EMAIL_FROM,
             subject: "User Email Signin"
         }),
+
     ],
     pages: {
         signIn: '/auth/signin',
     },
     adapter: MongoDBAdapter(clientPromise)
-
 })

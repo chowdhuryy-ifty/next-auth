@@ -1,8 +1,8 @@
 import React, {useState} from "react";
 import {signIn, useSession} from "next-auth/react";
-import {Box, Button, FormLabel, Heading, Input, VStack, chakra} from "@chakra-ui/react";
+import {Box, Button, chakra, FormLabel, Heading, Input, VStack} from "@chakra-ui/react";
 import {useRouter} from "next/router";
-import {BsGithub, BsGoogle, BsTwitter} from 'react-icons/bs'
+import {BsGithub, BsGoogle} from 'react-icons/bs'
 
 const providers = [
     {
@@ -19,6 +19,7 @@ const Signin = () => {
     const {data: session, status} = useSession()
     const {push} = useRouter()
     const [email, setEmail] = useState('')
+    const [password, setPassword] = useState('')
     if (status === "loading") return <Heading>Checking Authentication .....</Heading>
 
     if (session) {
@@ -38,14 +39,31 @@ const Signin = () => {
         signIn('email', {email, redirect: false})
     }
 
+    const handleEmailandPassword = (e) => {
+        e.preventDefault()
+        if (!email && !password) {
+            return false
+        }
+    }
+
     return (
         <Box>
+            <chakra.form>
+                <FormLabel>Email Address</FormLabel>
+                <Input type='email' onChange={(e) => setEmail(e.target.value)}/>
+                <FormLabel>Password</FormLabel>
+                <Input type='password' onChange={(e) => setPassword(e.target.value)}/>
+                <Button type='submit' w='100%' my={5}>
+                    Login
+                </Button>
+                <p>if your new please <Button><a href='/auth/signup'>sign up</a></Button></p>
+            </chakra.form>
             <chakra.form onSubmit={handleSubmit}>
                 <FormLabel>Email Address</FormLabel>
                 <Input type='email' onChange={(e) => setEmail(e.target.value)}/>
 
                 <Button type='submit' w='100%' my={5}>
-                    Login
+                    Submit
                 </Button>
 
             </chakra.form>
