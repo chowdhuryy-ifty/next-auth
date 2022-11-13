@@ -5,7 +5,12 @@ import clientPromise from "../../../database/connectDB";
 import {MongoDBAdapter} from "@next-auth/mongodb-adapter"
 import EmailProvider from "next-auth/providers/email";
 import CredentialsProvider from 'next-auth/providers/credentials'
+import connectMongo from "../../../database/conn";
+import CustomUsers from "../../../models/userModel";
+import {compare} from "bcrypt";
+
 export default NextAuth({
+
     providers: [
         GithubProvider({
             clientId: process.env.GITHUB_ID,
@@ -27,6 +32,26 @@ export default NextAuth({
             from: process.env.EMAIL_FROM,
             subject: "User Email Signin"
         }),
+        CredentialsProvider({
+            name: "Credentials",
+            async authorize(credentials, req) {
+                connectMongo().catch(error => {
+                    "Connection failed"
+                })
+
+                // check user existance
+                const result = await CustomUsers.findOne({email: credentials.email})
+                if (!result) {
+                    throw new Error("No user found with this email please signup")
+                }
+                //compare
+                const checkPassword = await compare(credentials.password, result.password)
+                if (!checkPassword || result.email !== credentials.email) {
+                    throw new Error("Username and password doesn't match")
+                }
+                return result
+            }
+        })
 
     ],
     pages: {

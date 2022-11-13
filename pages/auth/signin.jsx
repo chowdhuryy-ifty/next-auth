@@ -20,6 +20,8 @@ const Signin = () => {
     const {push} = useRouter()
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
+    const router = useRouter()
+
     if (status === "loading") return <Heading>Checking Authentication .....</Heading>
 
     if (session) {
@@ -39,16 +41,25 @@ const Signin = () => {
         signIn('email', {email, redirect: false})
     }
 
-    const handleEmailandPassword = (e) => {
+    const handleEmailandPassword = async (e) => {
         e.preventDefault()
         if (!email && !password) {
             return false
         }
+        const status = await signIn('credentials', {
+            redirect: false,
+            email: email,
+            password: password,
+            callbackUrl: "/"
+        })
+        console.log(status)
+        if (status.error) router.push(status.url)
+
     }
 
     return (
         <Box>
-            <chakra.form>
+            <chakra.form onSubmit={handleEmailandPassword}>
                 <FormLabel>Email Address</FormLabel>
                 <Input type='email' onChange={(e) => setEmail(e.target.value)}/>
                 <FormLabel>Password</FormLabel>
