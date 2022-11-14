@@ -32,7 +32,7 @@ const Signin = () => {
         return <Heading>you are already signed in</Heading>
     }
 
-    const handleOAuthSignIn = (provider) => () => signIn(provider)
+    const handleOAuthSignIn = (provider) => () => signIn(provider, {callbackUrl: "http://localhost:3000"})
 
     const handleSubmit = (e) => {
         e.preventDefault()
@@ -46,6 +46,7 @@ const Signin = () => {
         if (!email && !password) {
             return false
         }
+        console.log(email, password)
         const status = await signIn('credentials', {
             redirect: false,
             email: email,
@@ -53,7 +54,7 @@ const Signin = () => {
             callbackUrl: "/"
         })
         console.log(status)
-        if (status.error) router.push(status.url)
+        if (status.ok) router.push(status.url)
 
     }
 

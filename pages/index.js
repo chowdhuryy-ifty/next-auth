@@ -11,7 +11,6 @@ export default function Home() {
 
     // if we want to redirect user to another url
     const {push, asPath} = useRouter()
-    console.log(session)
 
     // const handleSignOut = async () => {
     //     const data = await signOut({redirect: false, callbackUrl: '/some'})
@@ -48,7 +47,6 @@ export async function getServerSideProps({req}) {
             }
         }
     }
-    console.log('jkj', session)
     return {
         props: {session}
     }
