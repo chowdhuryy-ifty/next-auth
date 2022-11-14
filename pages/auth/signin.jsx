@@ -2,7 +2,7 @@ import React, {useState} from "react";
 import {signIn, useSession} from "next-auth/react";
 import {Box, Button, chakra, FormLabel, Heading, Input, VStack} from "@chakra-ui/react";
 import {useRouter} from "next/router";
-import {BsGithub, BsGoogle} from 'react-icons/bs'
+import {BsGithub, BsGoogle, BsLinkedin} from 'react-icons/bs'
 
 const providers = [
     {
@@ -12,6 +12,10 @@ const providers = [
     {
         name: 'google',
         Icon: BsGoogle,
+    },
+    {
+        name: 'linkedin',
+        Icon: BsLinkedin
     },
 ]
 
@@ -34,12 +38,6 @@ const Signin = () => {
 
     const handleOAuthSignIn = (provider) => () => signIn(provider, {callbackUrl: "http://localhost:3000"})
 
-    const handleSubmit = (e) => {
-        e.preventDefault()
-        if (!email) return false
-
-        signIn('email', {email, redirect: false})
-    }
 
     const handleEmailandPassword = async (e) => {
         e.preventDefault()
@@ -70,15 +68,7 @@ const Signin = () => {
                 </Button>
                 <p>if your new please <Button><a href='/auth/signup'>sign up</a></Button></p>
             </chakra.form>
-            <chakra.form onSubmit={handleSubmit}>
-                <FormLabel>Email Address</FormLabel>
-                <Input type='email' onChange={(e) => setEmail(e.target.value)}/>
-
-                <Button type='submit' w='100%' my={5}>
-                    Submit
-                </Button>
-
-            </chakra.form>
+            <br/>
             <VStack>
                 {providers.map(({name, Icon}) => (
                     <Button
