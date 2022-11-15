@@ -1,8 +1,9 @@
 import React, {useState} from "react";
 import {signIn, useSession} from "next-auth/react";
-import {Box, Button, chakra, FormLabel, Heading, Input, VStack} from "@chakra-ui/react";
+import {Box, Button, chakra, FormLabel, Heading, HStack, IconButton, Input, VStack} from "@chakra-ui/react";
 import {useRouter} from "next/router";
 import {BsGithub, BsGoogle, BsLinkedin} from 'react-icons/bs'
+import Logo from "../../Components/Logo";
 
 const providers = [
     {
@@ -58,30 +59,33 @@ const Signin = () => {
 
     return (
         <Box>
+            <Logo/>
+            <br/>
             <chakra.form onSubmit={handleEmailandPassword}>
                 <FormLabel>Email Address</FormLabel>
                 <Input type='email' onChange={(e) => setEmail(e.target.value)}/>
+                <br/>
                 <FormLabel>Password</FormLabel>
                 <Input type='password' onChange={(e) => setPassword(e.target.value)}/>
-                <Button type='submit' w='100%' my={5}>
+                <Button type='submit' w='100%' my={5} variant='outline'>
                     Login
                 </Button>
-                <p>if your new please <Button><a href='/auth/signup'>sign up</a></Button></p>
+                <p>If your new please <Button colorScheme='blue'><a href='/auth/signup'>Sign up</a></Button></p>
             </chakra.form>
             <br/>
-            <VStack>
+            <HStack>
                 {providers.map(({name, Icon}) => (
-                    <Button
+                    <IconButton
                         key={name}
-                        leftIcon={<Icon/>}
+                        icon={<Icon/>}
                         onClick={handleOAuthSignIn(name)}
                         textTransform='uppercase'
                         w='100%'
                     >
-                        Sign in with {name}
-                    </Button>
+
+                    </IconButton>
                 ))}
-            </VStack>
+            </HStack>
         </Box>
     )
 }
