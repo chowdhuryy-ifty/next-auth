@@ -7,7 +7,7 @@ export default async function handler(req, res) {
     if (req.method === 'POST') {
         if (!req.body) return res?.status(404)?.json({error: "Don't Have form data"})
 
-        const {username, email, password, token} = req.body
+        const {name, email, password, token} = req.body
 
         const response = await fetch(`https://www.google.com/recaptcha/api/siteverify?secret=${process.env.NEXT_PUBLIC_RECAPTCHA_SECRET_KEY}&response=${token}`, {
             headers: {
@@ -20,7 +20,7 @@ export default async function handler(req, res) {
             //check duplicate users
             const checkExisting = await CustomUsers.findOne({email});
             if (checkExisting) return res?.status(442)?.json({message: "JSON User already Exists !!"})
-            CustomUsers.create({username, email, password: await hash(password, 12)}, function (err, data) {
+            CustomUsers.create({name, email, password: await hash(password, 12)}, function (err, data) {
                 if (err) return res?.status(404)?.json({err});
                 res?.status(201)?.json({status: true, user: data})
             })

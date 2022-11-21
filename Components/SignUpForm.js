@@ -11,7 +11,7 @@ const SignupForm = ({googleReCaptchaProps}) => {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [password2, setPassword2] = useState('')
-    const [username, setUsername] = useState('')
+    const [name, setName] = useState('')
     const [message, setMessage] = useState('')
     const [isShown, setIsShown] = useState(false)
 
@@ -34,7 +34,7 @@ const SignupForm = ({googleReCaptchaProps}) => {
             const options = {
                 method: "POST",
                 headers: {'Content-Type': 'application/json'},
-                body: JSON.stringify({username: username, email: email, password: password, token: token})
+                body: JSON.stringify({name: name, email: email, password: password, token: token})
             }
 
             await fetch(`http://localhost:3000/api/auth/signup`, options)
@@ -62,7 +62,7 @@ const SignupForm = ({googleReCaptchaProps}) => {
             <chakra.form onSubmit={handleSubmit}>
                 <FormControl isRequired>
                     <FormLabel>Username</FormLabel>
-                    <Input type='username' onChange={(e) => setUsername(e.target.value)}/>
+                    <Input type='username' onChange={(e) => setName(e.target.value)}/>
                 </FormControl>
                 <FormControl isRequired>
                     <FormLabel>Email Address</FormLabel>
