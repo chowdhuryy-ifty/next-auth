@@ -3,7 +3,7 @@ import CustomUsers from "../../../models/userModel";
 import {hash} from "bcrypt";
 
 export default async function handler(req, res) {
-    connectMongo().catch(error => res?.json({error: "Connection Failed......!"}))
+    connectMongo().catch(error => res?.json({error: `Connection Failed......!${error}`}))
     if (req.method === 'POST') {
         if (!req.body) return res?.status(404)?.json({error: "Don't Have form data"})
 
