@@ -15,7 +15,7 @@ export default function Home() {
     //     const data = await signOut({redirect: false, callbackUrl: '/some'})
     //     push(data.url)
     // }
-
+    console.log(session)
     const handleSignIn = () => push(`/auth/signin?callbackUrl=${asPath}`)
 
     return (<Grid placeItems='center' gridRowGap='1rem'>
