@@ -16,6 +16,7 @@ function MyApp({Component, pageProps: {session, ...pageProps}}) {
                 </Grid>
             </ChakraProvider>
         </SessionProvider>
+
     )
 
 }
