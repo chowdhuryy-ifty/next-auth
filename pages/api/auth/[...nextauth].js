@@ -6,6 +6,7 @@ import connectMongo from "../../../database/conn";
 import CustomUsers from "../../../models/userModel";
 import {compare} from "bcrypt";
 import LinkedInProvider from "next-auth/providers/linkedin";
+import {PrismaAdapter} from "@next-auth/prisma-adapter";
 
 export default NextAuth({
 
@@ -47,9 +48,8 @@ export default NextAuth({
     pages: {
         signIn: '/auth/signin',
     },
-    // adapter: MongoDBAdapter(clientPromise),
-    session: {
-        strategy: 'jwt',
-    },
+
+    adapter: PrismaAdapter(),
+
     secret: process.env.SECRET
 })

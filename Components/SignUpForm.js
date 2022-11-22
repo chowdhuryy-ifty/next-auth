@@ -25,7 +25,6 @@ const SignupForm = ({googleReCaptchaProps}) => {
             }
             // console.log(executeRecaptcha)
             const token = await executeRecaptcha('token')
-            console.log(token)
             if (password !== password2) {
                 setMessage(`Password doesn't match`)
                 return null
